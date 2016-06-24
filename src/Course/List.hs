@@ -95,6 +95,15 @@ product Nil =
 product (h :. t) =
   h * product t
 
+range ::
+  Int
+  -> Int
+  -> List Int
+range x y =
+  if x <= y
+    then x :. range (x + 1) y
+    else Nil
+
 -- | Sum the elements of the list.
 --
 -- >>> sum (1 :. 2 :. 3 :. Nil)
@@ -107,8 +116,10 @@ product (h :. t) =
 sum ::
   List Int
   -> Int
-sum =
-  error "todo: Course.List#sum"
+sum Nil =
+  0
+sum (h :. t) =
+  h + sum t
 
 -- | Return the length of the list.
 --
@@ -119,9 +130,10 @@ sum =
 length ::
   List a
   -> Int
-length =
-  error "todo: Course.List#length"
-
+length Nil =
+  0
+length (_ :. t) =
+  1 + length t
 -- | Map the given function on each element of the list.
 --
 -- >>> map (+10) (1 :. 2 :. 3 :. Nil)
